@@ -1,0 +1,11 @@
+{
+  "db":{
+    "host": "localhost",
+    "user": "root",
+    "password": "qgk112358",
+    "database": "hrs"
+  },
+  "auth":{
+    "secret": "279X9x1Jm9CfVxO-VP44owRjxTNmMO-aTzsKS9LWIhMNVyoumyTdXkQ1jHYAmn2d"
+  }
+}

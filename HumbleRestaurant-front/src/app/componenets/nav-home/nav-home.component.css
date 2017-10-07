@@ -1,0 +1,15 @@
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed; /* <-- Look here */
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.btn-link {
+  color: #212121;
+}
+
+.nav-link {
+  color: #212121;
+}

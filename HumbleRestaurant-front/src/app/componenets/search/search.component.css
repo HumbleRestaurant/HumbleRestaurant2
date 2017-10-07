@@ -1,0 +1,22 @@
+.search-content{
+  padding: 80px 60px;
+  background: #F5F5F5;
+}
+
+.search-title{
+  margin: 15px 0;
+}
+
+.search-result{
+  padding: 0 4rem;
+}
+
+.restaurant-img{
+  width: 200px;
+  height: 200px;
+}
+
+agm-map {
+  width:100%;
+  height: 300px;
+}

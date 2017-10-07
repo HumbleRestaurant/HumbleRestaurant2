@@ -1,0 +1,149 @@
+<app-nav-home></app-nav-home>
+<div class="search-content">
+  <div>
+    <span style="color: dimgray;">Searching &nbsp;&nbsp;</span>
+    <span style="color: dimgray; font-size: 150%;">
+      {{search.keyword !== '' ? search.keyword : 'Restaurants,Bars...'}}
+    </span>
+    <span style="color: dimgray;">&nbsp;&nbsp; Near &nbsp;&nbsp;</span>
+    <span style="color: dimgray; font-size: 150%;">
+      {{location !== '' ? location : 'Your Location'}}
+    </span>
+  </div>
+
+  <div class="row">
+  <div class="input-group input-group-sm col-md-8">
+    <span class="input-group-btn">
+      <button class="btn btn-secondary" type="button">
+          Find
+      </button>
+    </span>
+    <input
+      [(ngModel)]="search.keyword"
+      type="text" class="form-control" placeholder="Restaurants, Bars ..">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-secondary dropdown-toggle"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Near
+      </button>
+      <div class="dropdown-menu">
+        <div [routerLink]="['/search',search.keyword,location]"
+             class="dropdown-item btn btn-sm">Current Location</div>
+      </div>
+    </div>
+    <input
+      [(ngModel)]="location"
+      type="text" class="form-control" placeholder="Location">
+    <div class="input-group-btn">
+        <button [routerLink]="['/search', search.keyword, location]"
+                class="btn btn-secondary" type="button">
+          <fa name="search"></fa>
+        </button>
+    </div>
+  </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+  <div class="col-md-8">
+    <div class="btn-group btn-group-sm" data-toggle="buttons">
+      <label (click)="changeSortBy('rating')" class="btn btn-outline-secondary active">
+        <input type="radio" name="rate" id="rate">
+        Top Rated
+      </label>
+      <label (click)="changeSortBy('favs')" class="btn btn-outline-secondary">
+        <input type="radio" name="like" id="like">
+        Most Liked
+      </label>
+      <label (click)="changeSortBy('reviews')"  class="btn btn-outline-secondary">
+        <input type="radio" name="view" id="view">
+        Most Viewed
+      </label>
+    </div>
+
+    <ul class="pagination pagination-sm float-right">
+      <li class="page-item {{search.page == 1 ? 'disabled' : ''}}">
+        <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+      </li>
+      <li class="page-item active">
+        <a class="page-link">{{search.page}}</a>
+      </li>
+      <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+        <a (click)="jumpPage(1)" class="page-link">{{search.page + 1}}</a>
+      </li>
+      <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+        <a (click)="jumpPage(2)" class="page-link">{{search.page + 2}}</a>
+      </li>
+      <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+        <a (click)="jumpPage(1)" class="page-link">Next</a>
+      </li>
+    </ul>
+
+  </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div *ngFor="let restaurant of restaurants">
+
+        <div class="row">
+          <div class="col-md-2" style="padding: 0 0 10px 15px; height: 100px;">
+            <img *ngIf="!restaurant.url1" class="img-thumbnail" src="../../../assets/restaurant_default.jpg">
+            <img *ngIf="restaurant.url1" style="max-height: 100px; width: 100px;"
+                 class="img-thumbnail" [src]="restaurant.url1">
+          </div>
+          <div class="col-md-4">
+            <a [routerLink]="['/restaurant', restaurant.ownerId]" style="color:#212121; font-size: medium;">
+              {{restaurant.name}}
+            </a>
+            <br>
+            <span class="badge badge-pill badge-warning">
+              <fa name="commenting"></fa>
+              {{restaurant.reviews}}
+            </span>
+            <span class="badge badge-pill badge-success">
+              <fa name="heart"></fa>
+              {{restaurant.favs}}
+            </span>
+
+            <div class="row" style="padding: 10px;">
+            <star-rating-comp class="float-left"
+                              [showHalfStars]="true"
+                              [readOnly]="true"
+                              [size]="'medium'"
+                              [starType]="'svg'" [rating]="restaurant.rating"></star-rating-comp>
+            </div>
+
+          </div>
+          <div class="col-md-6" style="color: dimgray; font-size: small;">
+            <div>
+              {{restaurant.address}}
+            </div>
+
+            <div *ngIf="restaurant.phone != 0">
+              {{restaurant.phone}}
+            </div>
+          </div>
+
+        </div>
+
+        <hr style="margin: 15px 40px 15px 130px;">
+
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <agm-map [latitude]="center.lat" [longitude]="center.lng">
+        <agm-marker *ngFor="let restaurant of restaurants"
+                    [latitude]="restaurant.lat"
+                    [longitude]="restaurant.lng">
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>
+

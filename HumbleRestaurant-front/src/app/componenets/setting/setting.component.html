@@ -1,0 +1,34 @@
+<app-nav-home></app-nav-home>
+
+<div class="container setting-content">
+<tabset *ngIf="user">
+  <tab heading="Personal">
+    <app-setting-user [user] = "user"></app-setting-user>
+  </tab>
+
+  <tab *ngIf="user.role == 'group'" heading="Group">
+    <app-setting-group [user] = "user"></app-setting-group>
+  </tab>
+
+  <tab *ngIf="user.role == 'admin'" heading="Users">
+    <app-setting-role [user] = "user"></app-setting-role>
+  </tab>
+  <tab *ngIf="user.role == 'admin'" heading="Restaurants">
+    <app-setting-restaurants [user] = "user"></app-setting-restaurants>
+  </tab>
+  <tab *ngIf="user.role == 'admin'" heading="Groups">
+    <app-setting-groups></app-setting-groups>
+  </tab>
+  <tab *ngIf="user.role == 'admin'" heading="Donors">
+    <app-setting-donor [user] = "user"></app-setting-donor>
+  </tab>
+
+  <tab *ngIf="user.role == 'restaurant'" heading="Restaurant">
+    <app-setting-restaurant [user] = "user"></app-setting-restaurant>
+  </tab>
+
+  <tab heading="Receipts">
+    <app-setting-receipt [user] = "user"></app-setting-receipt>
+  </tab>
+</tabset>
+</div>

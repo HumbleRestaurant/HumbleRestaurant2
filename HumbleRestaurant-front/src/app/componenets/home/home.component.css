@@ -1,0 +1,48 @@
+.header{
+  background-image: url("../../../assets/header-back.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  padding: 10rem 15px 2em 15px;
+  margin-bottom: 1.5rem;
+}
+
+.intro-message{
+  padding: 7em 0;
+}
+
+.intro-header{
+  font-size: x-large;
+  padding: 13px;
+  color: azure;
+}
+
+.card-subtitle{
+  clear: both;
+  margin-top: 30px;
+  color: grey;
+  font-size: 90%;
+}
+
+.card-btn{
+  margin: 10px;
+}
+
+.content-divider{
+  margin-top: 60px;
+  color: grey;
+  font-size: large;
+}
+
+input{
+  border-width: 0;
+}
+
+span{
+  border-width: 0;
+}
+
+a{
+  color: black;
+}

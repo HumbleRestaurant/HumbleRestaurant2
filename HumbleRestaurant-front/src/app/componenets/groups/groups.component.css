@@ -1,0 +1,14 @@
+.groups-content{
+  padding: 80px 60px;
+  background: #F5F5F5;
+  min-height: 100%;
+}
+
+.img-avatar{
+  width: 100%;
+  margin: 10px 0;
+}
+
+.fa {
+  width: 15px;
+}

@@ -1,0 +1,9 @@
+<agm-map *ngIf="restaurants"
+         [latitude]="restaurants[0].lat"
+         [longitude]="restaurants[0].lng">
+
+  <agm-marker *ngFor="let restaurant of restaurants"
+    [latitude]="restaurant.lat"
+    [longitude]="restaurant.lng">
+  </agm-marker>
+</agm-map>

@@ -1,0 +1,13 @@
+a {
+  color: dimgrey;
+}
+
+.setting-content {
+  padding: 80px 30px;
+}
+
+.img-avatar{
+  width: 80px;
+  height: 80px;
+  margin: 20px auto 0 auto;
+}

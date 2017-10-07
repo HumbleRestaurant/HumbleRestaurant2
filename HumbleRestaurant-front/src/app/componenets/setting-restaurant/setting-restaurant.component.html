@@ -1,0 +1,154 @@
+<div *ngIf="restaurant; else newBlock" style="padding:20px;">
+
+  <h4>
+    Basic
+    <fa name="info-circle"></fa>
+  </h4>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="name">Restaurant Name</label>
+      <input [(ngModel)]="restaurant.name" id="name" class="form-control form-control-sm">
+    </div>
+
+    <div class="col-md-2">
+      <label for="reviews">Reviews</label>
+      <input [(ngModel)]="restaurant.reviews" id="reviews" disabled class="form-control form-control-sm">
+    </div>
+
+    <div class="col-md-2">
+      <label for="rating">Rating</label>
+      <input [(ngModel)]="restaurant.rating" id="rating" disabled class="form-control form-control-sm">
+    </div>
+
+    <div class="col-md-2">
+      <label for="favorites">Favorites</label>
+      <input [(ngModel)]="restaurant.favs" id="favorites" disabled class="form-control form-control-sm">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <label for="address">Address <fa *ngIf="loading" class="text-success" animation="spin" name="refresh"></fa></label>
+      <input (change)="onAddressChange()" [(ngModel)]="restaurant.address" id="address" class="form-control form-control-sm">
+    </div>
+
+    <div class="col-md-4">
+      <label for="phone">Phone</label>
+      <input [(ngModel)]="restaurant.phone" id="phone" class="form-control form-control-sm">
+    </div>
+  </div>
+
+  <label for="summary">Summary</label>
+  <textarea [(ngModel)]="restaurant.summary" id="summary" class="form-control form-control-sm">
+  </textarea>
+
+  <label for="infoBlock">Additional Information</label>
+  <textarea [(ngModel)]="restaurant.infoBlock" id="infoBlock" class="form-control form-control-sm">
+  </textarea>
+
+
+  <br>
+  <h4>
+    Billing
+    <fa name="dollar"></fa>
+  </h4>
+
+  <div class="row">
+    <div class="col-md-4">
+      <label for="donation">Donation</label>
+      <input [(ngModel)]="restaurant.donation" id="donation" disabled class="form-control form-control-sm">
+    </div>
+
+    <div class="col-md-4">
+      <label for="funds">Balance</label>
+      <input *ngIf="role == 'admin'; else elseBlock"
+             [(ngModel)]="restaurant.funds"
+             id="funds" class="form-control form-control-sm">
+
+      <ng-template #elseBlock>
+        <input [(ngModel)]="restaurant.funds" disabled
+               class="form-control form-control-sm">
+      </ng-template>
+
+    </div>
+
+    <div class="col-md-4">
+      <label for="percentage">Percentage Donation</label>
+      <input [(ngModel)]="restaurant.percentage" id="percentage" class="form-control form-control-sm">
+    </div>
+  </div>
+
+  <br>
+  <h4>
+    Image
+    <fa name="file-image-o"></fa>
+  </h4>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <span class="btn-file card">
+      <img *ngIf="restaurant.url1" class="img-file"
+           [src]="restaurant.url1">
+
+      <input #fileInput1 (change)="uploadFile(0,fileInput1.files)" type="file">
+      </span>
+    </div>
+
+    <div class="col-md-6">
+      <span class="btn-file card">
+      <img *ngIf="restaurant.url2" class="img-file"
+           [src]="restaurant.url2">
+
+      <input #fileInput2 (change)="uploadFile(1,fileInput2.files)" type="file">
+      </span>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <span class="btn-file card">
+      <img *ngIf="restaurant.url3" class="img-file"
+           [src]="restaurant.url3">
+
+      <input #fileInput3 (change)="uploadFile(2,fileInput3.files)" type="file">
+      </span>
+    </div>
+
+    <div class="col-md-6">
+      <span class="btn-file card">
+      <img *ngIf="restaurant.url4" class="img-file"
+           [src]="restaurant.url4">
+
+      <input #fileInput4 (change)="uploadFile(3,fileInput4.files)" type="file">
+      </span>
+    </div>
+
+  </div>
+
+  <button class="btn btn-outline-success" (click)="updateResturant()">
+    Save Change
+  </button>
+
+</div>
+
+<ng-template #newBlock>
+
+  <div style="width: 100%; text-align: center; padding: 80px;">
+
+    <h4 class="text-muted">
+      We can't find your restaurant...
+    </h4>
+
+    <br>
+
+    <button (click)="newRestaurant()" class="btn btn-outline-success">
+      Create One
+    </button>
+  </div>
+
+
+</ng-template>

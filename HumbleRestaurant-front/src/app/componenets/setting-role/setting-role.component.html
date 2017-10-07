@@ -1,0 +1,66 @@
+<div class="row" style="margin: 10px 0;">
+  <div class="input-group input-group-sm col-md-4" style="padding-left: 0;">
+    <input [(ngModel)]="search.keyword" type="text" class="form-control" placeholder="Search">
+    <span (click)="searchUsers()" class="input-group-addon">&nbsp;<fa name="search"></fa>&nbsp;</span>
+  </div>
+
+  <I class="text-muted text-sm-right col-md-8" style="padding: 5px;">
+    <fa name="exclamation-triangle"></fa>
+    Click save button after making changes
+  </I>
+</div>
+
+<table class="table">
+  <thead class="thead-inverse"><tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Foodie</th>
+    <th>Donation</th>
+    <th>Payment</th>
+    <th>Role</th>
+    <th></th>
+  </tr></thead>
+
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.email}}</th>
+      <td [(inlineEditableModel)]="user.name"></td>
+      <td [(inlineEditableModel)]="user.foodie"></td>
+      <td [(inlineEditableModel)]="user.donation"></td>
+      <td [(inlineEditableModel)]="user.payment"></td>
+      <td>
+        <select class="custom-select custom-select-sm" [(ngModel)]="user.role">
+          <option>user</option>
+          <option>group</option>
+          <option>restaurant</option>
+          <option>admin</option>
+        </select>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-dark" (click)="updateUser(user.userId)"> Save </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<nav class="float-right">
+  <ul class="pagination">
+    <li class="page-item {{search.page == 1 ? 'disabled' : ''}}">
+      <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link">{{search.page}}</a>
+    </li>
+    <li class="page-item {{users.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(1)" class="page-link">{{search.page + 1}}</a>
+    </li>
+    <li class="page-item {{users.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(2)" class="page-link">{{search.page + 2}}</a>
+    </li>
+    <li class="page-item {{users.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(1)" class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>

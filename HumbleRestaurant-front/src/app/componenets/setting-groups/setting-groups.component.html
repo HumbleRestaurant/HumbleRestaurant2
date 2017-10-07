@@ -1,0 +1,70 @@
+<br>
+<div class="row">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="input-group">
+        <input [(ngModel)]="keyword" type="text" class="form-control" placeholder="Search">
+        <span (click)="searchGroup()" class="input-group-addon">&nbsp;<fa name="search"></fa>&nbsp;</span>
+      </div>
+    </div>
+
+    <table class="table row">
+      <tbody>
+      <tr *ngFor="let group of groups" style="margin: 15px 0; width: 100%;">
+
+        <td>
+        <img *ngIf="group.url === ''; else elseBlock"
+             class="img-avatar"
+             src="../../../assets/group-default.svg"/>
+
+        <ng-template #elseBlock>
+          <img class="img-avatar" [src]="group.url">
+        </ng-template>
+        </td>
+
+        <td>
+          <a style="font-size: 140%; color: #212121;">{{group.name}}</a>
+        </td>
+
+        <td>
+        <button class="btn btn-sm btn-outline-info"
+                (click)="setCurGroup(group.ownerId)">
+          View more
+        </button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <nav>
+        <ul class="pagination pagination-sm justify-content-end">
+          <li class="page-item {{page == 1 ? 'disabled' : ''}}">
+            <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+          </li>
+          <li class="page-item active">
+            <a class="page-link">{{page}}</a>
+          </li>
+          <li class="page-item {{groups.length == 10? '' : 'disabled'}}">
+            <a (click)="jumpPage(1)" class="page-link">{{page + 1}}</a>
+          </li>
+          <li class="page-item {{groups.length == 10? '' : 'disabled'}}">
+            <a (click)="jumpPage(2)" class="page-link">{{page + 2}}</a>
+          </li>
+          <li class="page-item {{groups.length == 10? '' : 'disabled'}}">
+            <a (click)="jumpPage(1)" class="page-link">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div *ngIf="selected" class="card">
+      <div class="card-body">
+        <app-setting-group [user]="selected"></app-setting-group>
+      </div>
+    </div>
+  </div>
+</div>

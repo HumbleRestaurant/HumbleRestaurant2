@@ -1,0 +1,88 @@
+<nav style="margin-top: 15px;">
+  <ul class="pagination pagination-sm justify-content-end">
+    <li class="page-item {{search.page == 1 ? 'disabled' : ''}}">
+      <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link">{{search.page}}</a>
+    </li>
+    <li class="page-item {{receipts.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(1)" class="page-link">{{search.page + 1}}</a>
+    </li>
+    <li class="page-item {{receipts.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(2)" class="page-link">{{search.page + 2}}</a>
+    </li>
+    <li class="page-item {{receipts.length == 10? '' : 'disabled'}}">
+      <a (click)="jumpPage(1)" class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>
+
+<div *ngIf="receipts">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Restaurant</th>
+        <th>Payment</th>
+        <th>Donation</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let receipt of receipts">
+        <td>
+          <img
+            (click)="setCurUrl(receipt.url)"
+            data-toggle="modal" data-target="#imaegModal"
+            class="img-thumbnail" style="width: 30px; height: 30px;" [src] = 'receipt.url'>
+        </td>
+        <td>
+          <a [routerLink]="['/restaurant', receipt.restaurantId]">{{receipt.restaurantName}}</a>
+        </td>
+        <td>
+          {{receipt.amount}}
+        </td>
+        <td>
+          {{receipt.donation}}
+        </td>
+        <td>
+          {{receipt.date | date:'yyyy-MM-dd HH:mm:ss'}}
+        </td>
+        <td>
+
+          <div *ngIf="receipt.status == 0">
+            <button (click)="updateReceipt(receipt, 1)" class="btn btn-sm btn-outline-success">
+              Accept
+            </button>
+            <button (click)="updateReceipt(receipt, -1)" class="btn btn-sm btn-outline-danger">
+              Reject
+            </button>
+          </div>
+
+          <div class="text-sm-left text-success" *ngIf="receipt.status == 1">
+            Approved
+          </div>
+
+          <div class="text-sm-left text-danger" *ngIf="receipt.status == -1">
+            Reject
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="modal fade" id="imaegModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div *ngIf="curSrc" class="modal-body">
+        <app-image-view [src]="curSrc"></app-image-view>
+      </div>
+    </div>
+  </div>
+</div>

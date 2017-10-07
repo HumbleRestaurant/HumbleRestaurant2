@@ -1,0 +1,44 @@
+.restaurant-block1{
+  padding: 6rem 6rem 2rem 6rem;
+}
+
+.restaurant-title{
+  font-size: 250%;
+}
+
+.restaurant-block2{
+  margin: 2rem 6rem;
+}
+
+.img-slider{
+  height: 300px;
+}
+
+.shelfy-gray{
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 50%;
+  background: #F5F5F5;
+
+  border-bottom: 1px #000000;
+}
+
+.rating-block{
+  background-color:#FAFAFA;
+  border:1px solid #EFEFEF;
+  padding:15px;
+  border-radius:3px;
+}
+
+.left-marker{
+  border-width: 6px;
+  border-left: cornflowerblue;
+}
+
+p{
+  white-space:normal;
+  word-break:break-all;
+}

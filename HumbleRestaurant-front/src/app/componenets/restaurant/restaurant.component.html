@@ -1,0 +1,118 @@
+<app-nav-home></app-nav-home>
+<div *ngIf="restaurant" class="restaurant-block1">
+
+  <div class="row">
+
+    <div class="shelfy-gray"></div>
+
+    <div class="col-md-6">
+      <div class="restaurant-title">
+        {{restaurant.name}}
+        <div class="btn btn-outline-danger btn-sm">
+          <fa name="heart"></fa>
+          {{restaurant.favs}}
+        </div>
+        <div class="btn btn-outline-success btn-sm">
+          <fa name="commenting"></fa>
+          {{restaurant.reviews}}
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 2rem;">
+        <div class="col-md-4 text-right">
+          <div style="font-size: large; color: #4CAF50;">
+            %{{restaurant.percentage | number: '1.0-2'}}
+          </div>
+          <div style="font-size: 80%; color: dimgray;">of your payment will be given to charity</div>
+          <div style="font-size: medium; color: #4CAF50;">{{restaurant.donation | number: '1.0-3'}}</div>
+          <div style="font-size: 80%; color: dimgray;">has been given here</div>
+        </div>
+        <div class="col-md-8 text-left">
+          {{restaurant.summary}}
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="slides" class="col-md-6 img-slider">
+      <carousel [sources]="slides" [config]="config"></carousel>
+    </div>
+
+    <div *ngIf="userId" class="btn-group btn-group-sm align-bottom" style="margin: 20px 0 0 30px;">
+      <button *ngIf="!isFav; else elseBlock" (click)="setFavorite(true)" class="btn btn-outline-primary">
+        <fa name="heart-o"></fa>
+        Save as Favorite
+      </button>
+
+      <ng-template #elseBlock>
+        <button (click)="setFavorite(false)" class="btn btn-outline-primary">
+          <fa name="remove"></fa>
+          Remove from Favorite
+        </button>
+      </ng-template>
+
+      <button class="btn btn-outline-primary"  data-toggle="modal" data-target="#paymentModal">
+        <fa name="cloud-upload"></fa>
+        Upload Receipt
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="restaurant" class="restaurant-block2 row">
+  <div class="col-md-8">
+    <app-rating [restaurant]="restaurant">Loading...</app-rating>
+  </div>
+
+  <div class="col-md-4" style="margin-top: 30px;">
+
+    <div class="rating-block text-center">
+      <p>Average User Rating</p>
+      <div>
+        <span style="font-size: 250%;">
+        {{restaurant.rating | number: '1.0-2'}}
+        </span>
+        <span style="font-size: 150%;">/5</span>
+      </div>
+      <star-rating-comp [showHalfStars]="true"
+                        [readOnly]="true"
+                        [size]="'large'"
+                        [starType]="'svg'" [rating]="restaurant.rating"></star-rating-comp>
+    </div>
+
+    <br>
+    <div class="rating-block">
+      <div *ngIf="restaurant.phone != 0" class="row">
+        <fa style="color: gray" class="col-md-1" name="phone"></fa>
+        <p class="col-md-10">{{restaurant.phone}}</p>
+      </div>
+
+      <div *ngIf="restaurant.address != ''" class="row">
+        <fa style="color: gray" class="col-md-1" name="location-arrow"></fa>
+        <p  class="col-md-10">{{restaurant.address}}</p>
+      </div>
+
+      <app-map [restaurants] = "[restaurant]"></app-map>
+    </div>
+
+    <br>
+    <div *ngIf="restaurant.infoBlock != ''" class="rating-block">
+      <p>Other Information:</p>
+      <p>{{restaurant.infoBlock}}</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        Upload Receipt
+      </div>
+      <div *ngIf="restaurant" class="modal-body">
+        <app-payment [restaurant]="restaurant"></app-payment>
+      </div>
+    </div>
+  </div>
+</div>

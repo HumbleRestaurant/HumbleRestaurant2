@@ -1,0 +1,98 @@
+<br>
+
+<div class="container row">
+
+  <div class="col-md-5 col-sm-12">
+
+    <div style="margin-bottom: 30px;">
+    <span style="font-size: 150%;"> Contributors </span>
+
+    <div class="btn-group btn-group-sm float-right" data-toggle="buttons">
+      <label (click)="changeUserDuration('day')" class="btn btn-outline-secondary active">
+        <input type="radio" name="daily" id="daily-user">
+        Today
+      </label>
+      <label (click)="changeUserDuration('week')" class="btn btn-outline-secondary">
+        <input type="radio" name="weekly" id="weekly-user">
+        Week
+      </label>
+      <label (click)="changeUserDuration('month')" class="btn btn-outline-secondary">
+        <input type="radio" name="monthly" id="monthly-user">
+        Month
+      </label>
+    </div>
+    </div>
+
+
+    <div *ngFor="let user of donorUsers; let i = index;" class="donor">
+
+      <span class="rank-number">{{i+1}} &nbsp; </span>
+
+      <a href="">{{user.name}}</a>
+
+      <div class="float-right dollar-amount">
+        <fa name="dollar"></fa>{{user.donation}}
+      </div>
+    </div>
+
+
+    <button (click)="generateUser()"
+            style="margin-top: 15px;" class="btn btn-block btn-outline-warning">
+      Regenerate
+    </button>
+
+    <button *ngIf="showUserUpdate" (click)="updateUser()"
+            style="margin-top: 10px;" class="btn btn-block btn-outline-danger">
+      Update
+    </button>
+
+
+  </div>
+
+
+  <div class="col-md-2"></div>
+
+
+  <div class="col-md-5 col-sm-12">
+
+    <div style="margin-bottom: 20px;">
+    <span style="font-size: 150%;"> Restaurants </span>
+
+    <div class="btn-group btn-group-sm float-right" data-toggle="buttons">
+      <label (click)="changeRestaurantDuration('day')" class="btn btn-outline-secondary active">
+        <input type="radio" name="daily" id="daily-restaurant">
+        Today
+      </label>
+      <label (click)="changeRestaurantDuration('week')" class="btn btn-outline-secondary">
+        <input type="radio" name="weekly" id="weekly-restaurant">
+        Week
+      </label>
+      <label (click)="changeRestaurantDuration('month')" class="btn btn-outline-secondary">
+        <input type="radio" name="monthly" id="monthly-restaurant">
+        Month
+      </label>
+    </div>
+    </div>
+
+    <div *ngFor="let restaurant of donorRestaurants; let i = index;" class="donor">
+
+      <span class="text-sm-left">{{i+1}} &nbsp; </span>
+
+      <a href="">{{restaurant.name}}</a>
+
+      <div class="float-right dollar-amount">
+        <fa name="dollar"></fa>{{restaurant.donation}}
+      </div>
+    </div>
+
+    <button (click)="generateRestaurant()"
+            style="margin-top: 15px;" class="btn btn-block btn-outline-warning">
+      Regenerate
+    </button>
+    <button *ngIf="showRestaurantUpdate" (click)="updateRestaurant()"
+            style="margin-top: 15px;" class="btn btn-block btn-outline-danger">
+      Update
+    </button>
+
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.header{
+  background-image: url("../../../assets/donor-back.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  padding: 10rem 15px 2em 15px;
+  margin-bottom: 1.5rem;
+}
+
+.intro-message{
+  padding: 7em 0;
+}
+
+.intro-header{
+  font-size: x-large;
+  padding: 13px 0;
+  color: azure;
+}
+
+a{
+  color: #212121;
+  padding-left: 10px;
+}
+
+.donor{
+  padding: 15px 10px;
+}
+
+.dollar-amount{
+  color: #4CAF50;
+}

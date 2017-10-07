@@ -1,0 +1,18 @@
+.header{
+  padding: 12rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.intro-img {
+  width: 100%;
+}
+
+.section {
+  padding: 30px 100px;
+  vertical-align: middle;
+  color: dimgrey;
+}
+
+hr{
+  margin: 0 100px;
+}

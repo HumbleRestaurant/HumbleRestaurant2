@@ -1,0 +1,195 @@
+<app-nav-home></app-nav-home>
+<div class="profile-content">
+
+  <div class="row">
+    <div class="col-md-3">
+      <div *ngIf="user" class="card text-center">
+
+        <img *ngIf="user.avatar === ''; else elseBlock"
+             class="img-avatar"
+             src="../../../assets/avatar-default.svg"/>
+
+        <ng-template #elseBlock>
+          <img class="img-avatar" [src]="user.avatar">
+        </ng-template>
+
+        <div class="name-section">
+          {{user.name}}
+        </div>
+
+        <br>
+
+        <h5 *ngIf="user.role == 'restaurant'">
+          <fa name="check-circle" style="color: #4CAF50"></fa>
+          Verified Restaurant
+          <br>
+          <button
+            [routerLink]="['/restaurant',user.userId]"
+            class="btn btn-sm btn-link">
+            View Page
+          </button>
+        </h5>
+
+        <hr>
+
+        <div class="row" style="padding: 10px;">
+          <div class="col-md-4">
+            <span style="color: #4CAF50">{{user.comment}}</span><br>
+            <span style="font-size: 70%; color: dimgray;">COMMENT</span>
+          </div>
+          <div class="col-md-4">
+            <span style="color: #4CAF50">{{user.payment}}</span><br>
+            <span style="font-size: 70%; color: dimgray;">PAYMENT</span>
+          </div>
+          <div class="col-md-4">
+            <span style="color: #4CAF50">{{user.donation}}</span><br>
+            <span style="font-size: 70%; color: dimgray;">DONATION</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="color: dimgray;">
+            Favorite Restaurants
+            <fa name="heart"></fa>
+          </h5>
+
+          <div *ngFor="let fav of favs">
+            <a [routerLink]="['/restaurant', fav.ownerId]">
+              {{fav.restaurantName}}
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+      <div class="card" style="height: 100%; padding: 20px;">
+        <div class="card-title" style="color: dimgray;">
+          <div class="float-left">
+            Footprints
+            <fa name="history"></fa>
+          </div>
+
+          <div class="btn-group float-right" role="group">
+            <button type="button" (click)="jumpPaymentsPage(-1)"
+                    class="{{paymentSearch.page == 1 ? 'disabled':''}} btn btn-sm btn-outline-secondary">
+              Prev
+            </button>
+            <button type="button" (click)="jumpPaymentsPage(1)"
+                    class="{{payments && payments.length == 10 ? '':'disabled'}} btn btn-sm btn-outline-secondary">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="!payments || payments.length == 0">
+          <app-blank [type] = "'payment'"></app-blank>
+        </div>
+
+        <table *ngIf="payments && payments.length > 0" class="table">
+          <thead><tr><th>restaurant</th><th>Payment</th><th>Donation</th><th>Status</th></tr></thead>
+          <tbody>
+          <tr *ngFor="let payment of payments">
+            <td>
+              <a [routerLink]="['/restaurant', payment.restaurantId]">
+                {{payment.restaurantName}}
+              </a>
+            </td>
+            <td>
+              {{payment.amount | number: '1.0-2'}}
+            </td>
+            <td>
+              {{payment.donation | number: '1.0-2'}}
+            </td>
+            <td>
+              <button *ngIf="payment.status == 0" class="btn btn-sm btn-secondary">Pending</button>
+
+              <button *ngIf="payment.status == 1" class="btn btn-sm btn-success">&nbsp;Accepted&nbsp;</button>
+
+              <button *ngIf="payment.status == -1" class="btn btn-sm btn-danger">&nbsp;Rejected&nbsp;</button>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title" style="color: dimgray;">
+            <div class="float-left">
+              Reviews
+              <fa name="commenting"></fa>
+            </div>
+
+            <div class="btn-group float-right" role="group">
+              <button type="button" (click)="jumpRatingsPage(-1)"
+                      class="{{ratingSearch.page == 1 ? 'disabled':''}} btn btn-sm btn-outline-secondary">
+                Prev
+              </button>
+              <button type="button" (click)="jumpRatingsPage(1)"
+                      class="{{ratings && ratings.length == 10 ? '':'disabled'}} btn btn-sm btn-outline-secondary">
+                Next
+              </button>
+            </div>
+          </div>
+
+          <br><br>
+
+          <div *ngIf="!ratings || ratings.length == 0">
+            <app-blank [type] = "'rating'"></app-blank>
+          </div>
+
+          <div *ngFor="let rating of ratings" style="clear: both;">
+            <div *ngIf="rating.score != 0">
+              <a [routerLink]="['/restaurant', rating.restaurantId]" style="font-size: 120%;">
+                {{rating.restaurantName}}<fa name="home"></fa>
+              </a>
+
+              <star-rating-comp class="float-right"
+                                [showHalfStars]="true"
+                                [readOnly]="true"
+                                [size]="'small'"
+                                [starType]="'icon'" [rating]="rating.score">
+              </star-rating-comp>
+            </div>
+
+            <div *ngIf="rating.score == 0">
+              <a [routerLink]="['/group', rating.restaurantId]" style="font-size: 120%;">
+                {{rating.restaurantName}}<fa name="users"></fa>
+              </a>
+            </div>
+
+            <div class="text-dark" style="font-weight: bold; margin: 10px 0;">{{rating.summary}}</div>
+            <div style="height: 30px; color: dimgray; font-size: 80%;">
+              {{rating.date | date:'dd-MM-yy HH:mm:ss'}}
+
+              <span class="float-right">{{rating.likes}} likes</span>
+            </div>
+
+            <hr>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

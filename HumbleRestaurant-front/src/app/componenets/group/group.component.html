@@ -1,0 +1,144 @@
+<app-nav-home></app-nav-home>
+<div class="group-content row">
+  <div *ngIf="group" class="col-md-3">
+
+    <div class="card text-center">
+      <img *ngIf="group.url === ''; else elseBlock"
+           class="img-avatar"
+           src="../../../assets/group-default.svg"/>
+
+      <ng-template #elseBlock>
+        <img class="img-avatar" [src]="group.url">
+      </ng-template>
+
+      <div class="name-section">
+        {{group.name}}
+      </div>
+
+      <span class="text-muted">{{group.zipCode}} Area</span>
+
+      <hr>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-md-6">
+          <span style="color: #4CAF50">{{group.users+1}}</span><br>
+          <span style="font-size: 70%; color: dimgray;">MEMBERS</span>
+        </div>
+        <div class="col-md-6">
+          <span style="color: #4CAF50">{{group.donation}}</span><br>
+          <span style="font-size: 70%; color: dimgray;">DONATION</span>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="card" style="padding: 5px;">
+      <app-map [restaurants]="[{lat:group.lat, lng:group.lng}]" ></app-map>
+    </div>
+
+    <br>
+    <div *ngIf="groupUsers" class="card">
+      <div class="card-body">
+        <div class="card-title" style="color: dimgray; height: 30px;">
+          <h5 class="float-left" style="padding: 6px 0;">
+            <fa name="users"></fa>
+            Members
+          </h5>
+
+          <button *ngIf="!isMember" (click)="joinGroup()"
+                  class="btn btn-sm btn-outline-info float-right">
+            JOIN
+          </button>
+        </div>
+
+        <div *ngFor="let user of groupUsers">
+          <a [routerLink]="['/profile', user.userId]" style="font-weight: bold;" class="text-dark" href="#">
+            {{user.userName}}
+          </a><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 style="padding: 6px 0;">
+          <fa name="heart"></fa>
+          Favorite Restaurants
+        </h5>
+
+        <button class="btn btn-link" *ngFor="let fav of favorites" [routerLink]="['/restaurant', fav.ownerId]">
+          {{fav.restaurantName}}
+        </button>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 style="padding: 6px 0;">
+          <fa name="history"></fa>
+          Footprints
+        </h5>
+
+        <table class="table">
+          <thead><tr><th>User</th><th>Restaurant</th><th>Donation</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr *ngFor="let payment of payments">
+              <td>
+                <a [routerLink]="['/profile', payment.userId]">
+                  {{payment.userName}}
+                </a>
+              </td>
+              <td>
+                <a [routerLink]="['/restaurant', payment.restaurantId]">
+                  {{payment.restaurantName}}
+                </a>
+              </td>
+              <td class="text-success">
+                {{payment.donation | number: '1.0-2'}}
+              </td>
+              <td>
+                {{payment.date | date:'MM-dd HH:mm'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 style="padding: 6px 0;">
+          <fa name="comments-o"></fa>
+          Recent Comments
+        </h5>
+
+        <div *ngFor="let rating of ratings">
+          <div class="text-dark" style="font-weight: bold; margin: 10px 0;">
+            {{rating.summary}}
+          </div>
+          <div class="text-right text-muted" style="font-size: 80%;">
+            {{rating.date | date:'MM-dd HH:mm'}} By {{rating.userName}}
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div *ngIf="isMember">
+      <label for="comment">Leave a comment:</label>
+      <div class="form-control">
+        <textarea [(ngModel)]="newRating.summary" rows="5" id="comment"></textarea>
+      </div>
+      <br>
+      <button (click)="addRating()" class="btn btn-block btn-warning">Submit</button>
+    </div>
+  </div>
+</div>

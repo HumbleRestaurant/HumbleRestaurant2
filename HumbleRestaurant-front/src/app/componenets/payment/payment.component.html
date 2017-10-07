@@ -1,0 +1,31 @@
+<div class="row" style="margin: 0 10px;">
+  <div class="col-md-6">
+    <span class="card btn-file">
+    <span *ngIf="payment.url == ''; else elseBlock"
+          class="text-muted text-center" style="font-size: large; padding: 120px 30px;">
+      Put your receipt here
+    </span>
+
+    <ng-template #elseBlock>
+    <img class="img-fluid" [src]="payment.url">
+    </ng-template>
+
+    <input #fileInput (change)="receiptUpload(fileInput.files)" type="file">
+    </span>
+  </div>
+
+  <div class="col-md-6">
+    <label for="payment">Payment</label>
+    <input [(ngModel)]="payment.amount"
+           class="form-control form-control-sm" id="payment" placeholder="Payment amount">
+
+    <label for="donation">Donation</label>
+    <input [value]="payment.amount * ( restaurant.percentage / 100 )"
+           disabled
+           class="form-control form-control-sm" id="donation">
+
+    <button (click)="addPayment()" class="btn btn-block btn-sm btn-outline-success">
+      Submit
+    </button>
+  </div>
+</div>

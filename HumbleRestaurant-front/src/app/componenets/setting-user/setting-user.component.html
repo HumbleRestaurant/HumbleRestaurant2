@@ -1,0 +1,72 @@
+<div class="row" style="padding: 10px 0;">
+
+  <div class="col-md-1">
+    <span class="btn-file">
+      <img *ngIf="user.avatar == ''; else elseBlock" class="img-avatar" src="../../../assets/avatar-default.svg">
+      <ng-template #elseBlock>
+      <img class="img-avatar" [src]="user.avatar">
+      </ng-template>
+
+      <input #fileInput (change)="avatarChange(fileInput.files)" type="file">
+    </span>
+  </div>
+
+  <div class="col-md-6">
+    <label for="email">Email</label>
+    <input class="form-control" id="email" name="email" disabled
+           value="{{profile?.email}}" type="text">
+
+    <label for="name">User Name</label>
+    <input class="form-control" id="name" name="name"
+           [(ngModel)]="user.name" type="text" placeholder="Nick Name">
+
+    <button class="btn btn-sm btn-outline-success float-right" (click)="updateUser()" > Save Change </button>
+
+    <button *ngIf="user.role == 'user'"
+            style="margin-right: 10px;"
+       class="btn btn-sm btn-outline-secondary float-right" data-toggle="collapse"
+       href="#newGroupSection" aria-expanded="false" aria-controls="collapseExample">
+      Group options
+    </button>
+
+  </div>
+
+  <div class="col-md-5">
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <div class="col-md-1"></div>
+
+  <div class="col-md-6 collapse" id="newGroupSection">
+
+    <div class="row">
+      <div class="col-md-8">
+        <label for="group-name">Group Name</label>
+        <input class="form-control" id="group-name" name="group-name"
+               [(ngModel)]="group.name" type="text">
+      </div>
+      <div class="col-md-4">
+        <label for="zip-code">Zip Code<fa *ngIf="loading" class="text-success" animation="spin" name="refresh"></fa></label>
+        <input class="form-control" id="zip-code" name="zip-code"
+               (change)="onAddressChange()"
+               [(ngModel)]="group.zipCode" type="text">
+      </div>
+    </div>
+
+    <label for="password">Enter Code</label>
+    <input class="form-control" id="password" name="group-name"
+           [(ngModel)]="group.password" type="text">
+
+    <label for="summary">Summary</label>
+    <textarea [(ngModel)]="group.summary" id="summary" class="form-control form-control-sm"></textarea>
+
+    <div>
+      <I class="text-muted text-sm-right col-md-8" style="padding: 5px;">
+        <fa name="exclamation-triangle"></fa>
+        You can create group only once
+      </I>
+      <button (click)="addGroup()"  class="btn btn-sm btn-outline-success float-right">Apply for group</button>
+    </div>
+  </div>
+</div>

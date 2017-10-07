@@ -1,0 +1,52 @@
+<nav class="navbar navbar-fixed-top navbar-toggleable-xl
+navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" [routerLink]="['/home']">{{title}}</a>
+
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home']">
+        Home <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/donor']">
+        Donors
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/groups']">
+        Groups
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/about']">
+        About us
+      </a>
+    </li>
+  </ul>
+
+  <button *ngIf="!authService.isAuthenticated()"
+          (click)="authService.login()" class="btn btn-outline-dark flex-row ml-md-auto d-none d-md-flex">
+    Login
+  </button>
+
+
+  <div *ngIf="authService.isAuthenticated()"
+       class="dropdown navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <button class="btn btn-link dropdown-toggle"
+            type="button" id="dropdownMenu"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ profile?.email }}
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+      <button [routerLink]="['/profile', userId]" class="dropdown-item" type="button">Profile</button>
+      <button [routerLink]="['/setting']" class="dropdown-item" type="button">Settings</button>
+
+      <div class="dropdown-divider"></div>
+
+      <button (click)="authService.logout()" class="dropdown-item text-danger" type="button">Log Out</button>
+    </div>
+  </div>
+
+</nav>
+

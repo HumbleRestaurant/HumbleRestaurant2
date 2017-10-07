@@ -1,0 +1,91 @@
+<div>
+  <label for="comment">Leave a Comment :</label>
+
+  <div class="form-control">
+    <star-rating-comp [showHalfStars]="true"
+                      [size]="'large'"
+                      (onRatingChange)="onRatingChange($event)"
+                      [starType]="'icon'" [rating]="newRating.score">
+    </star-rating-comp>
+    <hr>
+    <textarea [(ngModel)]="newRating.summary" rows="5" id="comment">
+    </textarea>
+  </div>
+
+  <button style="margin-top: 10px;"
+          (click)="addRating()"
+          class="btn btn-sm btn-outline-success {{default_rating.userId ? '': 'disabled'}}">Submit</button>
+</div>
+
+<br>
+<div class="rating-header">
+
+  <fa name="tags" style="font-size: 130%; color: #4CAF50;"></fa>
+  Your Review is our top concern
+
+
+  <div class="btn-group btn-group-sm float-right" style="margin-right: 10px;" role="group">
+    <button id="btnGroupDrop" type="button"
+            class="btn btn-sm btn-outline-success dropdown-toggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort by
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
+      <a class="dropdown-item" (click)="sortBy('likes')" >Most liked</a>
+      <a class="dropdown-item" (click)="sortBy('date')">Newest</a>
+    </div>
+  </div>
+
+  <nav class="float-right" style="margin-right: 10px;">
+    <ul class="pagination pagination-sm justify-content-end">
+      <li class="page-item {{ratingSearch.page == 1 ? 'disabled' : ''}}">
+        <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+      </li>
+      <li class="page-item {{ratings.length == 10? '' : 'disabled'}}">
+        <a (click)="jumpPage(1)" class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+
+<div *ngFor="let rating of ratings">
+
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-1">
+      <div *ngIf="rating.avatar != ''; else elseBlock">
+        <img class="img-avatar" src="{{rating.avatar}}"/>
+      </div>
+      <ng-template #elseBlock>
+        <img class="img-avatar" src="../../../assets/avatar-default.svg"/>
+      </ng-template>
+    </div>
+
+    <div class="col-md-11">
+      <a [routerLink]="['/profile', rating.userId]" style="font-weight: bold;" class="text-dark" href="#">
+        {{rating.userName}}
+      </a>
+
+      <button (click)="likeRating(rating)" class="btn btn-link text-success"
+              style="padding: 0 5px;">
+        {{rating.likes}} Likes
+      </button>
+
+      <br>
+      <span class="text-muted" style="font-size: 80%;">{{rating.date | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+
+      <star-rating-comp class="float-right"
+                        [showHalfStars]="true"
+                        [readOnly]="true"
+                        [size]="'medium'"
+                        [starType]="'svg'" [rating]="rating.score"></star-rating-comp>
+    </div>
+  </div>
+
+  <div class="text-dark" style="font-weight: bold; margin: 15px 5px;">
+    {{rating.summary}}
+  </div>
+
+  <hr>
+
+</div>

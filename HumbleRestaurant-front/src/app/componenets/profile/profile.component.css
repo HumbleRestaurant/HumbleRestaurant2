@@ -1,0 +1,20 @@
+.profile-content{
+  padding: 80px 60px;
+  background-color: #F5F5F5;
+  min-height: 100%;
+}
+
+.img-avatar{
+  width: 80px;
+  height: 80px;
+  margin: 20px auto 0 auto;
+}
+
+.name-section{
+  font-size: x-large;
+  color: #2E5C6E;
+}
+
+hr{
+  margin: 5px 0;
+}

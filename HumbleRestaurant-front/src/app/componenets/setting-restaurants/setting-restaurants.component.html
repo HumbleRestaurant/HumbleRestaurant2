@@ -1,0 +1,58 @@
+<br>
+<div class="row">
+
+  <div class="col-md-4">
+
+    <div style="margin:10px 0;">
+      Restaurant List
+    </div>
+
+    <div class="input-group input-group-sm" style="padding-left: 0;">
+      <input [(ngModel)]="search.keyword" type="text" class="form-control" placeholder="Search">
+      <span (click)="searchRestaurants()" class="input-group-addon">&nbsp;<fa name="search"></fa>&nbsp;</span>
+    </div>
+
+    <br>
+
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let restaurant of restaurants">
+          <td>{{restaurant.name}}</td>
+          <td>
+            <button (click)="setCurRestaurant(restaurant)"
+                    class="btn btn-sm btn-outline-info">View more</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+
+    <nav>
+      <ul class="pagination pagination-sm justify-content-end">
+        <li class="page-item {{search.page == 1 ? 'disabled' : ''}}">
+          <a (click)="jumpPage(-1)" class="page-link">Prev</a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link">{{search.page}}</a>
+        </li>
+        <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+          <a (click)="jumpPage(1)" class="page-link">{{search.page + 1}}</a>
+        </li>
+        <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+          <a (click)="jumpPage(2)" class="page-link">{{search.page + 2}}</a>
+        </li>
+        <li class="page-item {{restaurants.length == 10? '' : 'disabled'}}">
+          <a (click)="jumpPage(1)" class="page-link">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="col-md-8">
+      <div *ngIf="selected">
+        <app-setting-restaurant [user]="selected"></app-setting-restaurant>
+      </div>
+  </div>
+
+</div>
