@@ -1,0 +1,6 @@
+HumbleRestaurant-front/node_modules
+HumbleRestaurant-server/node_modules
+HumbleRestaurant-release
+Image-server/node_modules
+Image-server/resource/*
+.idea
