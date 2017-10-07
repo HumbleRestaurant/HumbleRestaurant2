@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-fuser -k 80/tcp
-fuser -k 3100/tcp
+echo '===========Clear Ports=============='
+sudo fuser -k 80/tcp
+sudo fuser -k 3000/tcp
+sudo fuser -k 3100/tcp
 
-cd ./HumbleRestaurant-server
-npm install
-pm2 start server.js &
+echo '===========Service Image=============='
+cd ./Image-server/
+sudo npm install
+sudo node server.js &
 
+echo '===========Front Build=============='
 cd ../HumbleRestaurant-front/
-npm install
-ng build
+sudo npm install
+sudo ng build
 
-cd ././Image-server/
-npm install
-pm2 start server.js &
+echo '===========Service Server=============='
+cd ../HumbleRestaurant-server/
+sudo npm install
+sudo node server.js &
