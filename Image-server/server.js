@@ -19,13 +19,15 @@ app.post('/', function (req, res) {
     var sampleFile = req.files.file;
     var filename = req.body.name;
 
+    console.log(req.get('host'));
+
     // Use the mv() method to place the file somewhere on your server
     sampleFile.mv('resource/' + filename, function(err) {
         if (err) {
             return res.status(500).send(err);
         }
 
-        res.send({'path': window.location.hostname + ':3100/' + filename});
+        res.send({'path': 'http://' + req.get('host') +'/' + filename});
     });
 });
 
