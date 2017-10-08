@@ -6,12 +6,12 @@ sudo fuser -k 3100/tcp
 
 echo '===========Service Image=============='
 cd ./Image-server/
-sudo npm install
+npm install
 sudo node server.js &
 
 echo '===========Front Build=============='
 cd ../HumbleRestaurant-front/
-sudo npm install
+npm install
 sudo ng build
 
 echo '===========Service Server=============='
