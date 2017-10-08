@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import {UserService} from '../user/user.service';
-import {CONFIG} from '../../app.config';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +12,7 @@ export class AuthService {
     domain: 'humblerestaurants.auth0.com',
     responseType: 'token id_token',
     audience: 'https://humblerestaurants.auth0.com/userinfo',
-    redirectUri: CONFIG.callback_url,
+    redirectUri: window.location.origin + '/callback',
     scope: 'openid email'
   });
 

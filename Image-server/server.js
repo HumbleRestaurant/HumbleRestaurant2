@@ -25,7 +25,7 @@ app.post('/', function (req, res) {
             return res.status(500).send(err);
         }
 
-        res.send({'path': 'http://165.227.57.73:3100/' + filename});
+        res.send({'path': window.location.hostname + ':3100/' + filename});
     });
 });
 

@@ -12,6 +12,6 @@ app.use(function (req, res, next) {
    res.sendFile('index.html', {root: path.join(__dirname, '../HumbleRestaurant-release/')});
 });
 
-app.listen(3000, function () {
-   console.log('Humble Restaurant server listening on port 3000.');
+app.listen(80, function () {
+   console.log('Humble Restaurant server listening on port 80.');
 });
