@@ -10,6 +10,7 @@ import {GroupService} from '../../services/group/group.service';
 })
 export class GroupsComponent implements OnInit {
   keyword: string;
+  status: string;
   page: number;
   groups: Group[] = [];
 
@@ -22,12 +23,19 @@ export class GroupsComponent implements OnInit {
     setTimeout(() => { this._loadingSvc.setValue(false); }, 1500);
 
     this.keyword = null;
+    this.status = null;
     this.page = 1;
     this.searchGroup();
   }
 
+  changeStatus(status) {
+    this.status = status;
+    this.searchGroup();
+  }
+
   searchGroup() {
-    this.groupService.searchGroups({keyword: this.keyword, page: this.page, sortBy: 'donation'})
+    this.groupService.searchGroups(
+      {keyword: this.keyword, status: this.status, page: this.page, sortBy: 'donation'})
       .then(res => this.groups = res);
   }
 

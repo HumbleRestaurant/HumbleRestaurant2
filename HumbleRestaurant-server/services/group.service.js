@@ -32,9 +32,22 @@ const getGroup = function (ownerId) {
 const getGroups = function (filter) {
     let sql = 'SELECT * FROM userGroup ';
 
-    if(filter.keyword !== null){
-        sql += ' WHERE name LIKE ' + mysql.escape('%' + filter.keyword + '%');
-        sql += ' OR zipCode LIKE ' + mysql.escape('%' + filter.keyword + '%');
+    if(filter.keyword || filter.status){
+        sql += 'WHERE ';
+        if(filter.keyword !== null) {
+            sql += ' name LIKE ' + mysql.escape('%' + filter.keyword + '%');
+            sql += ' OR zipCode LIKE ' + mysql.escape('%' + filter.keyword + '%');
+
+            if(filter.status) {
+                sql += 'OR ';
+            }
+        }
+
+        if(filter.status === 'private') {
+            sql += " password != ''";
+        } else if(filter.status === 'public'){
+            sql += " password = ''";
+        }
     }
 
     if(filter.sortBy !== null){

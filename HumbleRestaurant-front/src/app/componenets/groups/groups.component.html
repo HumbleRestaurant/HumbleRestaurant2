@@ -1,13 +1,31 @@
 <app-nav-home></app-nav-home>
 <div class="groups-content">
   <div class="row">
-    <div class="input-group col-md-6" style="padding-left: 0;">
+    <div class="input-group col-md-8" style="padding-left: 0;">
       <input [(ngModel)]="keyword" type="text" class="form-control" placeholder="Search">
       <span (click)="searchGroup()" class="input-group-addon">&nbsp;<fa name="search"></fa>&nbsp;</span>
     </div>
   </div>
 
-  <div class="row col-md-6" style="padding: 0;">
+  <br/>
+  <div class="row">
+    <div class="btn-group btn-group-sm" data-toggle="buttons">
+      <label (click)="changeStatus(null)" class="btn btn-outline-secondary active">
+        <input type="radio" name="all">
+        All
+      </label>
+      <label (click)="changeStatus('private')" class="btn btn-outline-secondary">
+        <input type="radio" name="private">
+        Private
+      </label>
+      <label (click)="changeStatus('public')" class="btn btn-outline-secondary">
+        <input type="radio" name="public">
+        Public
+      </label>
+    </div>
+  </div>
+
+  <div class="row col-md-8" style="padding: 0;">
     <div *ngFor="let group of groups"
          class="card" style="margin: 15px 0; width: 100%;">
       <div class="row" style="padding: 10px;">
