@@ -4,7 +4,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {FileService} from '../../services/file/file.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import {UserService} from '../../services/user/user.service';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {Group} from '../../models/Group';
 import {GeohashService} from '../../services/geohash/geohash.service';
 import {GroupService} from '../../services/group/group.service';
@@ -101,8 +101,12 @@ export class SettingUserComponent implements OnInit {
     } else {
       this.groupService.addGroup(this.group)
         .then((res) => {
-          this.user.role = 'group';
-          this.updateUser();
+          const user = {ownerId: this.group.ownerId, userId: this.user.userId, userName: this.user.name};
+          this.groupService.addGroupUser(user)
+            .then(() => {
+              this.user.role = 'group';
+              this.updateUser();
+            });
         });
     }
   }

@@ -8,7 +8,7 @@ import { CarouselService } from 'angular4-carousel';
 import {FavService} from '../../services/fav/fav.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {Search} from '../../models/Search.model';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({

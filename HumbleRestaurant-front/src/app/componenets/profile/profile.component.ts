@@ -12,6 +12,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {FavService} from '../../services/fav/fav.service';
 import {Favorite} from '../../models/Favorite.model';
 import { LoadingAnimateService } from 'ng2-loading-animate';
+import {Group} from "../../models/Group";
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,8 @@ export class ProfileComponent implements OnInit {
     ownerId: null, page: 1, keyword: null, geohash: null, sortBy: 'donation',
     userId: null, paymentId: null, restaurantId: null, ratingId: null
   };
+
+  groups: Group[];
 
   payments: Payment[];
   paymentSubscription: Subscription;
@@ -67,6 +70,7 @@ export class ProfileComponent implements OnInit {
           this.getRatings();
           this.getFavs();
           this.getPayments();
+          this.getGroups();
         });
     });
   }
@@ -84,6 +88,12 @@ export class ProfileComponent implements OnInit {
   getPayments() {
     this.paymentSubscription = this.paymentService.searchPayments(this.paymentSearch)
       .subscribe(payments => this.payments = payments);
+  }
+
+  getGroups() {
+    this.userService.getUserGroups(this.user.userId).then(
+      groups => this.groups = groups
+    );
   }
 
   jumpPaymentsPage(num) {

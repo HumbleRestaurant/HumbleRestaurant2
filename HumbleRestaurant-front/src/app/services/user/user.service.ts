@@ -37,6 +37,13 @@ export class UserService {
       .catch( error => this.handleError(error));
   }
 
+  getUserGroups(userId: string) {
+    return this.http.get('api/v1/users/' + userId + '/groups')
+      .toPromise()
+      .then((res: Response) => res.json())
+      .catch( error => this.handleError(error));
+  }
+
   updateUser(user: User) {
     return this.http.put('api/v1/users', user)
       .toPromise()

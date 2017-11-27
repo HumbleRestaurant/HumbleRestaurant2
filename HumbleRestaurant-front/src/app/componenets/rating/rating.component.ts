@@ -5,7 +5,7 @@ import {RatingService} from '../../services/rating/rating.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Search} from '../../models/Search.model';
 import {AuthService} from '../../services/auth/auth.service';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {Restaurant} from '../../models/Restaurant.model';
 import {UserService} from '../../services/user/user.service';
 

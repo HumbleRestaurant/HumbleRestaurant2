@@ -13,9 +13,14 @@
           <img class="img-avatar" [src]="user.avatar">
         </ng-template>
 
+        <br/>
         <div class="name-section">
           {{user.name}}
         </div>
+
+        <p style="font-size: 90%;">
+          {{user.email}}
+        </p>
 
         <br>
 
@@ -38,11 +43,11 @@
             <span style="font-size: 70%; color: dimgray;">COMMENT</span>
           </div>
           <div class="col-md-4">
-            <span style="color: #4CAF50">{{user.payment}}</span><br>
+            <span style="color: #4CAF50">{{user.payment | number: '1.0-2'}}</span><br>
             <span style="font-size: 70%; color: dimgray;">PAYMENT</span>
           </div>
           <div class="col-md-4">
-            <span style="color: #4CAF50">{{user.donation}}</span><br>
+            <span style="color: #4CAF50">{{user.donation | number: '1.0-2'}}</span><br>
             <span style="font-size: 70%; color: dimgray;">DONATION</span>
           </div>
         </div>
@@ -64,6 +69,22 @@
             </a>
           </div>
 
+        </div>
+      </div>
+
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="color: dimgray;">
+            Groups
+            <fa name="users"></fa>
+          </h5>
+
+          <div *ngFor="let group of groups">
+            <a [routerLink]="['/group', group.ownerId]">
+              {{group.name}}
+            </a>
+          </div>
         </div>
       </div>
 

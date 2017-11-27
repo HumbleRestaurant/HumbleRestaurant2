@@ -63,6 +63,20 @@ const getGroups = function (filter) {
     });
 };
 
+const getUserGroups = function (userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT userGroup.* FROM groupUser, userGroup where groupUser.userId = ' + mysql.escape(userId)
+                    + 'and groupUser.ownerId = userGroup.ownerId',
+            (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                }else {
+                    resolve(results);
+                }
+            });
+    });
+};
+
 const updateGroup = function (group) {
     return new Promise((resolve, reject) => {
         connection.query("UPDATE userGroup SET ? WHERE ownerId = ?", [group, group.ownerId],
@@ -123,6 +137,7 @@ module.exports = {
     addGroup,
     getGroup,
     getGroups,
+    getUserGroups,
     updateGroup,
     getGroupUsers,
     addGroupUser,

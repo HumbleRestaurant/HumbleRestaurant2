@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div class="row" style="margin-top: 20px;">
+<div *ngIf="user.role == 'user'" class="row" style="margin-top: 20px;">
   <div class="col-md-1"></div>
 
   <div class="col-md-6 collapse" id="newGroupSection">
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <label for="password">Enter Code</label>
+    <label for="password">Group Password</label>
     <input class="form-control" id="password" name="group-name"
            [(ngModel)]="group.password" type="text">
 

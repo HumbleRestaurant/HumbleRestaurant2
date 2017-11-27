@@ -3,7 +3,7 @@ import {User} from '../../models/User.model';
 import {RestaurantService} from '../../services/restaurant/restaurant.service';
 import {Restaurant} from '../../models/Restaurant.model';
 import {FileService} from '../../services/file/file.service';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {GeohashService} from '../../services/geohash/geohash.service';
 
 @Component({

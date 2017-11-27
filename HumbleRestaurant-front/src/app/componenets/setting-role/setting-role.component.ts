@@ -3,7 +3,7 @@ import {User} from '../../models/User.model';
 import {UserService} from '../../services/user/user.service';
 import {Search} from '../../models/Search.model';
 import {Subscription} from 'rxjs/Subscription';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-setting-role',

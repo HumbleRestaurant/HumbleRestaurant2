@@ -6,7 +6,7 @@ import {Restaurant} from '../../models/Restaurant.model';
 import {Search} from '../../models/Search.model';
 import {Subscription} from 'rxjs/Subscription';
 import {GeohashService} from '../../services/geohash/geohash.service';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 
 const default_search: Search = Object.freeze({

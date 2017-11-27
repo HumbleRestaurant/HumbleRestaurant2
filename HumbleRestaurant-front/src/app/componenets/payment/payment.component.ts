@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Restaurant} from '../../models/Restaurant.model';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {FileService} from '../../services/file/file.service';
 import {PaymentService} from '../../services/payment/payment.service';
 import { NotificationService } from 'ng2-notify-popup';

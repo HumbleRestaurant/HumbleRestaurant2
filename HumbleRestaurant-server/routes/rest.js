@@ -301,6 +301,14 @@ router.get('/groups/:ownerId', function (req, res) {
             error => {res.status(400).send(error);});
 });
 
+router.get('/users/:userId/groups', function(req, res) {
+    const userId = req.params.userId;
+    groupService.getUserGroups(userId)
+        .then(
+            data => res.json(data),
+            error => {res.status(400).send(error);});
+})
+
 // POST /api/v1/groups/query
 router.post('/groups/query', jsonParser, function (req, res) {
     groupService.getGroups(req.body)

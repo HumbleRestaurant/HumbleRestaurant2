@@ -5,13 +5,12 @@ import {Group} from '../../models/Group';
 import {GroupService} from '../../services/group/group.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {Payment} from '../../models/Payment.model';
-import {Favorite} from '../../models/Favorite.model';
 import {PaymentService} from '../../services/payment/payment.service';
 import {FavService} from '../../services/fav/fav.service';
 import {Rating} from '../../models/Rating.model';
 import {Search} from '../../models/Search.model';
 import {Subscription} from 'rxjs/Subscription';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {RatingService} from '../../services/rating/rating.service';
 
 @Component({
@@ -110,9 +109,6 @@ export class GroupComponent implements OnInit, OnDestroy {
     this.favoriteService.searchFavs({userId: userId, ownerId: null})
       .subscribe(res => {
         const favs = [];
-
-        console.log(JSON.stringify(res));
-
         for (let i = 0; i < res.length; i++) {
           let temp = favs.find(o => o.ownerId === res[i].ownerId);
           if (!temp) {
@@ -136,17 +132,49 @@ export class GroupComponent implements OnInit, OnDestroy {
           return 0;
         });
 
-        console.log(JSON.stringify(favs));
-
         this.favorites = favs;
       });
   }
 
   joinGroup() {
-    this.isMember = true;
-    const user = {ownerId: this.group.ownerId, userId: this.userId, userName: this.userName};
-    this.gropService.addGroupUser(user)
-      .then(res => {this.groupUsers.push(user); });
+
+    if(this.group.password) {
+
+      swal({
+        title: 'Enter password',
+        html: 'Password is need to join the group, contact the ' +
+        '<a href="/profile/' + this.group.ownerId + '">owner</a> for more info.',
+        input: "text"
+      })
+      .then((input) => {
+        if (input.value != this.group.password){
+          swal("Password doesn't match.");
+        } else {
+          this.isMember = true;
+          const user = {ownerId: this.group.ownerId, userId: this.userId, userName: this.userName};
+          this.gropService.addGroupUser(user)
+            .then(res => {this.groupUsers.push(user); });
+        }
+      });
+
+    } else {
+      this.isMember = true;
+      const user = {ownerId: this.group.ownerId, userId: this.userId, userName: this.userName};
+      this.gropService.addGroupUser(user)
+        .then(res => {this.groupUsers.push(user); });
+    }
+  }
+
+  leaveGroup() {
+    this.isMember = false;
+    for (let i = 0, len = this.groupUsers.length; i < len; i++) {
+      if(this.groupUsers[i].userId === this.userId) {
+          this.groupUsers.splice(i, 1);
+          break;
+      }
+    }
+    this.gropService.deleteGroupUser(this.group.ownerId, this.userId)
+      .then( res => {});
   }
 
   getRatings() {

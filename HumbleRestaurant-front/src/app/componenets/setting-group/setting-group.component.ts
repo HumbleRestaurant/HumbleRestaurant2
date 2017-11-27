@@ -3,7 +3,7 @@ import {User} from '../../models/User.model';
 import {GroupService} from '../../services/group/group.service';
 import {Group} from '../../models/Group';
 import {GeohashService} from '../../services/geohash/geohash.service';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {FileService} from '../../services/file/file.service';
 
 @Component({

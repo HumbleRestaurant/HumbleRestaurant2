@@ -49,6 +49,11 @@
                   class="btn btn-sm btn-outline-info float-right">
             JOIN
           </button>
+
+          <button *ngIf="isMember" (click)="leaveGroup()"
+                  class="btn btn-sm btn-outline-danger float-right">
+            LEAVE
+          </button>
         </div>
 
         <div *ngFor="let user of groupUsers">

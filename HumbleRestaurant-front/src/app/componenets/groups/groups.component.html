@@ -22,6 +22,12 @@
               <fa name="map-marker" class="fa"></fa>{{group.zipCode}}&nbsp;&nbsp;
               <fa name="user" class="fa"></fa>{{group.users + 1}}&nbsp;&nbsp;
               <fa name="dollar" class="fa"></fa>{{group.donation}}&nbsp;&nbsp;
+
+              <span class="text-muted" *ngIf="group.password">
+                <fa name="lock" class="fa"></fa>
+                This is a private group
+              </span>
+
             </div>
         </div>
       </div>
