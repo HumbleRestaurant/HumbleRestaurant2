@@ -22,23 +22,25 @@ import {Group} from "../../models/Group";
 export class ProfileComponent implements OnInit {
   user: User;
 
-  ratings: Rating[];
+  ratings: Rating[] = [];
   ratingSubscription: Subscription;
   ratingSearch: Search = {
     ownerId: null, page: 1, keyword: null, geohash: null, sortBy: 'date',
     userId: null, paymentId: null, restaurantId: null, ratingId: null
   };
 
-  favs: Favorite[];
+  favs: Favorite[] = [];
   favSubscription: Subscription;
   favSearch: Search = {
     ownerId: null, page: 1, keyword: null, geohash: null, sortBy: 'donation',
     userId: null, paymentId: null, restaurantId: null, ratingId: null
   };
 
-  groups: Group[];
+  groups: Group[] = [];
 
-  payments: Payment[];
+  groupMaxNum = 5;
+
+  payments: Payment[] = [];
   paymentSubscription: Subscription;
   paymentSearch: Search = {
     ownerId: null, page: 1, keyword: null, geohash: null, sortBy: 'date',
@@ -62,6 +64,10 @@ export class ProfileComponent implements OnInit {
       this.userService.getUser(params['id'])
         .then((user) => {
           this.user = user;
+
+          if(this.user.donation > 10) {
+              this.groupMaxNum = 20;
+          }
 
           this.favSearch.userId = user.userId;
           this.paymentSearch.userId = user.userId;

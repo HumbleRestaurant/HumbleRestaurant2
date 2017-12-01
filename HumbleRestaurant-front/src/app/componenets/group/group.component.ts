@@ -12,6 +12,7 @@ import {Search} from '../../models/Search.model';
 import {Subscription} from 'rxjs/Subscription';
 import swal from 'sweetalert2';
 import {RatingService} from '../../services/rating/rating.service';
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-group',
@@ -25,7 +26,10 @@ export class GroupComponent implements OnInit, OnDestroy {
 
   userId: string;
   userName: string;
+
   isMember = true;
+  canJoin = true;
+  memberNumMax = 10;
 
   payments: Payment[] = [];
   favorites = [];
@@ -48,6 +52,7 @@ export class GroupComponent implements OnInit, OnDestroy {
   };
 
   constructor(
+    private userService: UserService,
     private ratingService: RatingService,
     private favoriteService: FavService,
     private paymentService: PaymentService,
@@ -64,6 +69,27 @@ export class GroupComponent implements OnInit, OnDestroy {
     if (this.authService.isAuthenticated()) {
       this.userId = localStorage.getItem('user_id');
       this.userName = localStorage.getItem('name');
+
+      this.userService.getUserGroups(this.userId)
+        .then((res) => {
+            const groups = res;
+            this.userService.getUser(this.userId)
+              .then((res) => {
+                 let user = res;
+                 let limit = 5;
+
+                 if(user.donation > 10) {
+                   limit = 10;
+                 }
+
+                 if(groups.length >= limit) {
+                   this.canJoin = false;
+                 }
+              });
+        });
+
+    } else {
+      this.canJoin = false;
     }
 
     this.router.params.subscribe((params: Params) => {
@@ -85,6 +111,18 @@ export class GroupComponent implements OnInit, OnDestroy {
       this.gropService.getGroupUsers(ownerId)
         .then(res => {
           this.groupUsers = res;
+
+          this.userService.getUser(this.group.ownerId)
+            .then((res) => {
+              if(res.donation > 10){
+                this.memberNumMax = 20;
+              }
+
+              if(this.groupUsers.length >= this.memberNumMax) {
+                this.canJoin = false;
+              }
+            });
+
           this.getMemberInfo();
         });
     });

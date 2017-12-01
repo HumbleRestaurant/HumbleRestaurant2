@@ -75,12 +75,21 @@
       <br>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" style="color: dimgray;">
-            Groups
-            <fa name="users"></fa>
-          </h5>
+          <div>
+            <h5 class="card-title pull-left" style="color: dimgray;">
+              Groups
+              <fa name="users"></fa>
+            </h5>
 
-          <div *ngFor="let group of groups">
+            <span class="text-muted pull-right">
+              {{groups.length}} / {{groupMaxNum}}
+              <fa title="Unlock 10 group num limit with 10 dollars' donation"
+                  name="question-circle">
+              </fa>
+            </span>
+          </div>
+
+          <div style="clear:both;" *ngFor="let group of groups">
             <a [routerLink]="['/group', group.ownerId]">
               {{group.name}}
             </a>

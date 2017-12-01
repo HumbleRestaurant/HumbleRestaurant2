@@ -41,19 +41,20 @@
       <div class="card-body">
         <div class="card-title" style="color: dimgray; height: 30px;">
           <h5 class="float-left" style="padding: 6px 0;">
-            <fa name="users"></fa>
-            Members
+            {{groupUsers.length}}/{{memberNumMax}} Members
           </h5>
 
-          <button *ngIf="!isMember" (click)="joinGroup()"
-                  class="btn btn-sm btn-outline-info float-right">
-            JOIN
-          </button>
+          <div *ngIf="authService.isAuthenticated()">
+            <button *ngIf="!isMember && canJoin" (click)="joinGroup()"
+                    class="btn btn-sm btn-outline-info float-right">
+              JOIN
+            </button>
 
-          <button *ngIf="isMember" (click)="leaveGroup()"
-                  class="btn btn-sm btn-outline-danger float-right">
-            LEAVE
-          </button>
+            <button *ngIf="isMember" (click)="leaveGroup()"
+                    class="btn btn-sm btn-outline-danger float-right">
+              LEAVE
+            </button>
+          </div>
         </div>
 
         <div *ngFor="let user of groupUsers">

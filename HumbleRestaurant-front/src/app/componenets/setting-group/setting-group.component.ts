@@ -18,6 +18,8 @@ export class SettingGroupComponent implements OnInit, OnChanges {
   group: Group;
   groupUsers;
 
+  memberMaxNum = 10;
+
   loading = false;
 
   constructor(
@@ -31,6 +33,10 @@ export class SettingGroupComponent implements OnInit, OnChanges {
         this.group = group;
         this.getGroupUsers();
       });
+
+    if(this.user.donation > 10) {
+      this.memberMaxNum = 20;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
