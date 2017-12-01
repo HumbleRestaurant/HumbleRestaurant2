@@ -89,12 +89,12 @@ export class GroupComponent implements OnInit, OnDestroy {
         });
 
     } else {
+      this.isMember = false;
       this.canJoin = false;
     }
 
     this.router.params.subscribe((params: Params) => {
       const ownerId = params['ownerId'];
-
       this.gropService.getGroup(ownerId)
         .then(res => {
           this.group = res;
