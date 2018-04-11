@@ -43,8 +43,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         title: 'Welcome to HEFSEN',
         html:
         `
-        <a href="/about">Learn more about us</a>
-
+        <p>
+          Healthcare by Exchange for Someone Else's Needs.
+          <a href="/about">More about us</a>
+        </p>
         `
       });
       localStorage.setItem('first-alert', '1');
