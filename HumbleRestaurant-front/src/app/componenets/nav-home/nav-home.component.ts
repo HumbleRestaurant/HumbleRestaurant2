@@ -7,7 +7,7 @@ import {AuthService} from '../../services/auth/auth.service';
   styleUrls: ['./nav-home.component.css']
 })
 export class NavHomeComponent implements OnInit {
-  title = 'Humble Restaurants';
+  title = 'HEFSEN';
   userId: string;
   profile: any;
 
