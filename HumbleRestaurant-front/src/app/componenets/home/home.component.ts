@@ -40,11 +40,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if ( !localStorage.getItem('first-alert') ) {
       swal({
-        title: 'Welcome to HEFSEN',
+        title: 'Welcome to MunchCare!',
         html:
         `
         <p>
-          Healthcare by Exchange for Someone Else's Needs.
           <a href="/about">More about us</a>
         </p>
         `
